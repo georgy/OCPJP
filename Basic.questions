@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QuestionSet SYSTEM "inquisitionQuestions.dtd">
+
+<QuestionSet version="4">
+  <Name>Basic stuff</Name>
+  <Description><![CDATA[Questions on ...
+<hr>
+<b>Info:</b><br>
+<ul>
+<li>Maintainer: Georgy Bolyuba <tt>&lt;bolyuba@gmail.com&gt;</tt>
+<li>Home page: <a href="https://github.com/georgy/OCPJP">github</a>
+<li>Version: 0.1
+<li>Date published: 23/November/2011
+<li>Licence: (Public domain, Creative Commons etc)
+</ul>]]></Description>
+  <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
+  <Category>Category:Subcategory</Category>
+  <Questions>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code:
+<java>
+public class Test {
+    public static void main(String[] args) {
+        if ("String".toString() == "String")
+            System.out.println("Equal");
+        else
+            System.out.println("Not Equal");
+    }
+}
+</java>
+
+What will happen if you try to compile and run it?]]></QuestionText>
+      <Options>
+        <Option correct="false">Throws compile time exception</Option>
+        <Option correct="false">Compiles, but throws runtime exception</Option>
+        <Option correct="false">Runs, prints nothing</Option>
+        <Option correct="true"><![CDATA[Runs, prints "Equal"]]></Option>
+        <Option correct="false"><![CDATA[Runs, prints "Not Equal"]]></Option>
+      </Options>
+      <ExplanationText />
+    </MultipleChoiceQuestion>
+  </Questions>
+</QuestionSet>
+
