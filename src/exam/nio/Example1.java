@@ -134,7 +134,7 @@ public class Example1 {
             System.out.println(path + " is regular file");
         }
         if (Files.isSymbolicLink(path)) {
-            System.out.println(path + " is symbolic link");
+            System.out.println(path + " is symbolic link pointing to " + Files.readSymbolicLink(path));
         }
     }
 
