@@ -3,7 +3,7 @@
 
 <QuestionSet version="4">
   <Name>Basic stuff</Name>
-  <Description><![CDATA[Questions on ...
+  <Description><![CDATA[Questions on Java SE 7
 <hr>
 <b>Info:</b><br>
 <ul>
@@ -14,7 +14,7 @@
 <li>Licence: (Public domain, Creative Commons etc)
 </ul>]]></Description>
   <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
-  <Category>Category:Subcategory</Category>
+  <Category>OCPJP: Basic stuff for Java SE 7</Category>
   <Questions>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
       <QuestionText><![CDATA[Given following code:
@@ -38,6 +38,150 @@ What will happen if you try to compile and run it?]]></QuestionText>
         <Option correct="false"><![CDATA[Runs, prints "Not Equal"]]></Option>
       </Options>
       <ExplanationText />
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
+
+<java>
+1. int val = 42; 
+2. int val = 42L;
+3. int val = 0xaA;
+4. int val = 12_22;
+5. int val = 0bCAFE;
+6. int val = 0b10_01_01;
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">Only 1</Option>
+        <Option correct="false">1 and 3</Option>
+        <Option correct="false">1, 3 and 5</Option>
+        <Option correct="false">2 and 5</Option>
+        <Option correct="false">All, except 6</Option>
+        <Option correct="false">All, except 5</Option>
+        <Option correct="true">All, except 2 and 5</Option>
+      </Options>
+      <ExplanationText><![CDATA[#2 is wrong, because 42L is long and you need to cast it to int. #5 is wrong, because 0b is used for binary literal and it can only have 0 or 1.
+
+#1 is decimal literal, #3 is hexidecimal literal, #4 and #6 use new feature of Java 7 SE (http://docs.oracle.com/cd/E17409_01/javase/tutorial/java/nutsandbolts/datatypes.html)]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
+
+<java>
+1. int val = 1234_5678_9012_3456_L; 
+2. int val = 0b_1000_0100_0111;
+3. int val = 4_________2;
+4. int val = _12_22;
+5. int val = 0x_CAFE;
+6. int val = 0xCAFE_;
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">1</Option>
+        <Option correct="false">2</Option>
+        <Option correct="true">3</Option>
+        <Option correct="false">4</Option>
+        <Option correct="false">5</Option>
+        <Option correct="false">6</Option>
+      </Options>
+      <ExplanationText>#3 is ok.
+
+#1 is worng: cannot put _ before L
+#2 is wrong: cannot pur _ after 0b or 0x
+#4 is wrong: _12_22 is identifier, not a integer literal
+#5 is wrong: see #2
+#6 is wrong: cannot put _ at the end of the integer literal</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[Give the following, what is the correct way to use "diamond" (generics type inference feature) in Java SE 7? (Choose all that apply)
+<java>
+1. Map<String, List<String>> myMap = new HashMap<<>>();
+2. Map<String, List<String>> myMap = new HashMap<Stirng,<>>();
+3. Map<String, List<String>> myMap = new HashMap<>();
+4. Map<String, List<String>> myMap = new HashMap<>;
+5. Map<String, List<String>> myMap = new HashMap()<>;
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">1</Option>
+        <Option correct="false">2</Option>
+        <Option correct="true">3</Option>
+        <Option correct="false">4</Option>
+        <Option correct="false">5</Option>
+      </Options>
+      <ExplanationText>#6 will compile with warning. No type inference happens in this case</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[Which of the examples bellow will compile in Java SE 7? (Choose all that apply)
+
+<java>
+1. new ArrayList<>(String).add(new String("A"));
+2. new ArrayList<String>().add(new String("A"));
+3. new ArrayList<String>().add("A");
+4. new ArrayList<>().add("A");
+5. new List<String>().add("A");
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">1</Option>
+        <Option correct="true">2</Option>
+        <Option correct="true">3</Option>
+        <Option correct="true">4</Option>
+        <Option correct="false">5</Option>
+      </Options>
+      <ExplanationText><![CDATA[#4 - ArrayList<>() should be the same as ArrayList<Object>(). There is no way for compiler to infere the type]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given proper import statements, will code bellow compile in Java SE 7?
+<java>
+  List<? extends String> list2 = new ArrayList<>();
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="true">Yes</Option>
+        <Option correct="false">Yes, but will produce warning since ArrayList is not parametrized properly</Option>
+        <Option correct="false">No, since ? cannot be used in this context</Option>
+        <Option correct="false">No, since String is a final class and cannot be extended</Option>
+        <Option correct="false">No, since ArrayList is an abstract class</Option>
+      </Options>
+      <ExplanationText />
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+<java>
+public class Boobaa {
+    public static void main(String[] args) {
+        switch (args[0]) {
+            case "A": break;
+            case "B": break;
+            default: break;
+        }
+    }
+}
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">Compilation error</Option>
+        <Option correct="false">Compiles and runs without any output</Option>
+        <Option correct="false">Compiles with warning, as it has to case String to int</Option>
+        <Option correct="true">Compiles, but throws runtime exception</Option>
+      </Options>
+      <ExplanationText>ArrayIndexOutOfBoundsException will be thrown.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+<java>
+public class StringSwitch2 {
+    public static void main(String[] args) {
+        switch ((String)null) {
+            case "A": break;
+            case "B": break;
+            default: break;
+        }
+    }
+}</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">Code will not compile</Option>
+        <Option correct="false">Compiles, runs without any output</Option>
+        <Option correct="false">Compiles, throws AssertError in runtime</Option>
+        <Option correct="true">Compiles, throws NullPointerException in runtime</Option>
+        <Option correct="false">Compiles with warnings, since you cannot cast null to Stirng. Runs normally</Option>
+      </Options>
+      <ExplanationText>NullPointerException is thrown</ExplanationText>
     </MultipleChoiceQuestion>
   </Questions>
 </QuestionSet>
