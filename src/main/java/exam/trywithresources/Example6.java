@@ -5,11 +5,11 @@ public class Example6 {
     static class Resource implements AutoCloseable {
         private String val;
 
-        public Resource(String val) throws Exception {
+        public Resource(String val) {
             this.val = val;
         }
 
-        public void close() {
+        public void close() throws Exception {
             System.out.println("close");
         }
     }
