@@ -25,9 +25,10 @@
   <Category>OCPJP 7: Objecive 1 - Language Enhancements</Category>
   <Questions>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
-      <QuestionText><![CDATA[(Objective 1.1) What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+      <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+
 <java>
-public class Boobaa {
+public class Example1 {
     public static void main(String[] args) {
         switch (args[0]) {
             case "A": break;
@@ -43,12 +44,12 @@ public class Boobaa {
         <Option correct="false">Compiles with warning, as it has to case String to int</Option>
         <Option correct="true">Compiles, but throws runtime exception</Option>
       </Options>
-      <ExplanationText>ArrayIndexOutOfBoundsException will be thrown.</ExplanationText>
+      <ExplanationText>ArrayIndexOutOfBoundsException will be thrown. args is an empty array in this situation</ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
-      <QuestionText><![CDATA[(Objective 1.1) What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+      <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
 <java>
-public class StringSwitch2 {
+public class Example2 {
     public static void main(String[] args) {
         switch ((String)null) {
             case "A": break;
@@ -64,32 +65,113 @@ public class StringSwitch2 {
         <Option correct="true">Compiles, throws NullPointerException in runtime</Option>
         <Option correct="false">Compiles with warnings, since you cannot cast null to Stirng. Runs normally</Option>
       </Options>
-      <ExplanationText>NullPointerException is thrown</ExplanationText>
+      <ExplanationText>If the Expression of switch statement evaluates to null, a NullPointerException is thrown and the entire switch statement completes abruptly for that reason (JLS 14.11)</ExplanationText>
     </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.1) TODO</QuestionText>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code
+
+<java>
+.1. public class Example1 {
+ 2.     public static void main(String[] args) {
+ 3.        doswitch("aa");
+ 4.    }
+ 5.
+ 6.    private static void doswitch(String str) {
+ 7.        switch (str) {
+ 8.            case "a" + "a":
+ 9.                System.out.println("a+a");
+10.                break;
+11.            case "ab":
+12.                System.out.println("ab");
+13.                break;
+14.            case "aa":
+15.                System.out.println("aa");
+16.                break;
+17.            default:
+18.                System.out.println("default");
+19.        }
+20.    }
+21. }
+</java>
+
+if you try to compile and run this progam, what would be the result?]]></QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="false">Compile time exception on line 7</Option>
+        <Option correct="false">Compile time exception on line 8</Option>
+        <Option correct="false">Compile time exception on line 11</Option>
+        <Option correct="true">Compile time exception on line 14</Option>
+        <Option correct="false">Compile time exception on line 15</Option>
+        <Option correct="false">Compiles and runs, printing nothing</Option>
+        <Option correct="false"><![CDATA[Compiles and runs, printing "aa"]]></Option>
+        <Option correct="false"><![CDATA[Compiles and runs, printing "a+a"]]></Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText><![CDATA["a" + "a" is a costant expression that is equal to "aa" (JLS 15.28). No two of the case constant expressions associated with a switch statement may have the same value (JLS 14.11)]]></ExplanationText>
     </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.1) TODO</QuestionText>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code
+
+<java>
+.1. public class Example1 {
+ 2.     public static void main(String[] args) {
+ 3.        doswitch(null);
+ 4.    }
+ 5.
+ 6.    private static void doswitch(String str) {
+ 7.        switch (str) {
+ 8.            case "aa":
+ 9.                System.out.println("a+a");
+10.            case null:
+11.                System.out.println("Look ma, null!");
+12.                break;
+13.        }
+14.    }
+15. }
+</java>
+
+if you try to compile and run this progam, what would be the result?]]></QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="false">Compiles and runs without output</Option>
+        <Option correct="false"><![CDATA[Compiles and runs, printing "Look ma, null!"]]></Option>
+        <Option correct="false">Compiles and runs, throwing NullPointerException</Option>
+        <Option correct="false"><![CDATA[Compiles and runs, printing "a+a" followed by "Look ma, null!"]]></Option>
+        <Option correct="true">The code will not compile</Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText><![CDATA[Code will not compile. <code>null</code> is not a constant expression (JLS 15.28), but <code>case</code> requires constant expression (JLS 15.28) or enum constant (8.9.1)]]></ExplanationText>
     </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.1) TODO</QuestionText>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code
+
+<java>
+public class Example5 {
+    public static void main(String[] args) {
+        switch ("AA".toLowerCase().substring(1)) {   // 1
+            case "aa" + "a":                         // 2
+                System.out.println("aa+a");
+                break;
+            case "aa":                               // 3
+                System.out.println("aa");
+                break;
+            case (!true ? "a": "A"):                 // 4
+                System.out.println("a");
+                break;
+            default:
+                System.out.println("Missed!");
+                break;
+        }
+    }
+}
+</java>
+
+if you try to compile and run this progam, what would be the result?]]></QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="false"><![CDATA[Code will fail to compile because of the line // 1]]></Option>
+        <Option correct="false"><![CDATA[Code will fail to compile because of the line // 2]]></Option>
+        <Option correct="false"><![CDATA[Code will fail to compile because of the line // 3]]></Option>
+        <Option correct="false"><![CDATA[Code will fail to compile because of the line // 4]]></Option>
+        <Option correct="false"><![CDATA[Code compiles and will print "aaa"]]></Option>
+        <Option correct="false"><![CDATA[Code compiles and will print "aa"]]></Option>
+        <Option correct="false"><![CDATA[Code compiles and will print "a"]]></Option>
+        <Option correct="true"><![CDATA[Code compiles and will print "Missed!"]]></Option>
       </Options>
       <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
     </MultipleChoiceQuestion>

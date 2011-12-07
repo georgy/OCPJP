@@ -1,8 +1,8 @@
 package exam.strswitch;
 
-public class Example1 {
+public class Example2 {
     public static void main(String[] args) {
-        switch (args[0]) {
+        switch ((String)null) {
             case "A": break;
             case "B": break;
             default: break;
