@@ -16,110 +16,8 @@
   <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
   <Category>OCPJP 7: Objecive 1 - Language Enhancements</Category>
   <Questions>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText><![CDATA[What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
-
-<java>
-1. int val = 42; 
-2. int val = 42L;
-3. int val = 0xaA;
-4. int val = 12_22;
-5. int val = 0bCAFE;
-6. int val = 0b10_01_01;
-</java>]]></QuestionText>
-      <Options>
-        <Option correct="false">Only 1</Option>
-        <Option correct="false">1 and 3</Option>
-        <Option correct="false">1, 3 and 5</Option>
-        <Option correct="false">2 and 5</Option>
-        <Option correct="false">All, except 6</Option>
-        <Option correct="false">All, except 5</Option>
-        <Option correct="true">All, except 2 and 5</Option>
-      </Options>
-      <ExplanationText><![CDATA[#2 is wrong, because 42L is long and you need to cast it to int. #5 is wrong, because 0b is used for binary literal and it can only have 0 or 1.
-
-#1 is decimal literal, #3 is hexidecimal literal, #4 and #6 use new feature of Java 7 SE (http://docs.oracle.com/cd/E17409_01/javase/tutorial/java/nutsandbolts/datatypes.html)]]></ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
-      <QuestionText><![CDATA[What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
-
-<java>
-1. int val = 1234_5678_9012_3456_L; 
-2. int val = 0b_1000_0100_0111;
-3. int val = 4_________2;
-4. int val = _12_22;
-5. int val = 0x_CAFE;
-6. int val = 0xCAFE_;
-</java>]]></QuestionText>
-      <Options>
-        <Option correct="false">1</Option>
-        <Option correct="false">2</Option>
-        <Option correct="true">3</Option>
-        <Option correct="false">4</Option>
-        <Option correct="false">5</Option>
-        <Option correct="false">6</Option>
-      </Options>
-      <ExplanationText>#3 is ok.
-
-#1 is worng: cannot put _ before L
-#2 is wrong: cannot pur _ after 0b or 0x
-#4 is wrong: _12_22 is identifier, not a integer literal
-#5 is wrong: see #2
-#6 is wrong: cannot put _ at the end of the integer literal</ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
-      <QuestionText><![CDATA[Give the following, what is the correct way to use "diamond" (generics type inference feature) in Java SE 7? (Choose all that apply)
-<java>
-1. Map<String, List<String>> myMap = new HashMap<<>>();
-2. Map<String, List<String>> myMap = new HashMap<Stirng,<>>();
-3. Map<String, List<String>> myMap = new HashMap<>();
-4. Map<String, List<String>> myMap = new HashMap<>;
-5. Map<String, List<String>> myMap = new HashMap()<>;
-</java>]]></QuestionText>
-      <Options>
-        <Option correct="false">1</Option>
-        <Option correct="false">2</Option>
-        <Option correct="true">3</Option>
-        <Option correct="false">4</Option>
-        <Option correct="false">5</Option>
-      </Options>
-      <ExplanationText>#6 will compile with warning. No type inference happens in this case</ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
-      <QuestionText><![CDATA[Which of the examples bellow will compile in Java SE 7? (Choose all that apply)
-
-<java>
-1. new ArrayList<>(String).add(new String("A"));
-2. new ArrayList<String>().add(new String("A"));
-3. new ArrayList<String>().add("A");
-4. new ArrayList<>().add("A");
-5. new List<String>().add("A");
-</java>]]></QuestionText>
-      <Options>
-        <Option correct="false">1</Option>
-        <Option correct="true">2</Option>
-        <Option correct="true">3</Option>
-        <Option correct="true">4</Option>
-        <Option correct="false">5</Option>
-      </Options>
-      <ExplanationText><![CDATA[#4 - ArrayList<>() should be the same as ArrayList<Object>(). There is no way for compiler to infere the type]]></ExplanationText>
-    </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
-      <QuestionText><![CDATA[Given proper import statements, will code bellow compile in Java SE 7?
-<java>
-  List<? extends String> list2 = new ArrayList<>();
-</java>]]></QuestionText>
-      <Options>
-        <Option correct="true">Yes</Option>
-        <Option correct="false">Yes, but will produce warning since ArrayList is not parametrized properly</Option>
-        <Option correct="false">No, since ? cannot be used in this context</Option>
-        <Option correct="false">No, since String is a final class and cannot be extended</Option>
-        <Option correct="false">No, since ArrayList is an abstract class</Option>
-      </Options>
-      <ExplanationText />
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
-      <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+      <QuestionText><![CDATA[(Objective 1.1) What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
 <java>
 public class Boobaa {
     public static void main(String[] args) {
@@ -140,7 +38,7 @@ public class Boobaa {
       <ExplanationText>ArrayIndexOutOfBoundsException will be thrown.</ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
-      <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
+      <QuestionText><![CDATA[(Objective 1.1) What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
 <java>
 public class StringSwitch2 {
     public static void main(String[] args) {
@@ -159,6 +57,331 @@ public class StringSwitch2 {
         <Option correct="false">Compiles with warnings, since you cannot cast null to Stirng. Runs normally</Option>
       </Options>
       <ExplanationText>NullPointerException is thrown</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.1) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.1) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.1) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[(Objective 1.2) What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
+<java>
+0. byte val = 125;
+1. int val = 42;
+2. int val = 42L;
+3. int val = 0xaA;
+4. int val = 12_22;
+5. int val = 0bCAFE;
+6. int val = 0b10_01_01;
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">Only 1</Option>
+        <Option correct="false">1 and 3</Option>
+        <Option correct="false">1, 3 and 5</Option>
+        <Option correct="false">2 and 5</Option>
+        <Option correct="false">All, except 6</Option>
+        <Option correct="false">All, except 5</Option>
+        <Option correct="true">All, except 2 and 5</Option>
+      </Options>
+      <ExplanationText><![CDATA[(Objective 1.2) Use binary literals, numeric literals with underscores 
+<p>
+Option #0 is <b>correct</b>. 125 is integer literal of type int. But no explicit convertion reviquired for this because 125 is a constant expressions (JLS 15.28) and assigment convertion (5.2) allows narrowing primitive conversion from int to byte, short or char. However, 125L would require explicit cast<br/>
+Option #1 is <b>correct</b>. 42 is an integer literal of type int (JLS 3.10.1)<br/>
+Option #2 is <b>not correct</b>. 42L is an is an integer literal of type long (JLS 3.10.1, 15.28). For this code to work explicit cast (JSL 5.1.3)<br/>
+Option #3 is <b>correct</b>. 0xaA is an integer literal of type int, expressed as hexadecimal (JLS 3.10.1)<br/>
+Option #4 is <b>correct</b>. 12_22 is an integer literal of type int that uses underscore (new in JSE 7) (JLS 3.10.1)<br/>
+Option #5 is <b>not correct</b>. 0b preffix is used to start and integer literal, expressed as binary. Only 1 and 0 are allowed after 0b<br/>
+Option #6 is <b>correct</b>. 0b10_01_01 is valid binary integer literal of type int.<br/>
+</p>]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[(Objective 1.2) What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
+
+<java>
+1. int val = 1234_5678_9012_3456_L; 
+2. int val = 0b_1000_0100_0111;
+3. int val = 4_________2;
+4. int val = _12_22;
+5. int val = 0x_CAFE;
+6. int val = 0xCAFE_;
+7. int val = 0_1234;
+8. int val = 0_8765;
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">1</Option>
+        <Option correct="false">2</Option>
+        <Option correct="true">3</Option>
+        <Option correct="false">4</Option>
+        <Option correct="false">5</Option>
+        <Option correct="false">6</Option>
+        <Option correct="true">7</Option>
+        <Option correct="false">8</Option>
+      </Options>
+      <ExplanationText><![CDATA[(Objective 1.2) Use binary literals, numeric literals with underscores
+<p>
+Option #1 is <b>not correct</b>. Underscores are not allowed before suffix L or l (JLS 3.10.1)<br/>
+Option #2 is <b>not correct</b>. Underscores are not allowed after prefix 0x or 0b (JLS 3.10.1)<br/>
+Option #3 is <b>correct</b>.<br/>
+Option #4 is <b>not correct</b>. _12_22 is indetifier, not an integer literal<br/>
+Option #5 is <b>not correct</b>. Underscores are not allowed after prefix 0x or 0b (JLS 3.10.1)<br/>
+Option #6 is <b>not correct</b>. Underscores are not allowed at the end of integer literals (JLS
+ 3.10.1)<br/>
+Option #7 is <b>correct</b>.<br/> 0_1234 is a correct octal integer literal (JLS 3.10.1)
+Option #8 is <b>not correct</b>.<br/> Octal integer literal can only use digits from 0 to 7, not 8.
+</p>]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.2) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.2) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.2) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.4) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.4) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.4) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.4) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.4) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[(Objective 1.5) Which of the examples bellow will compile in Java SE 7? (Choose all that apply)
+
+<java>
+1. new ArrayList<>(String).add(new String("A"));
+2. new ArrayList<String>().add(new String("A"));
+3. new ArrayList<String>().add("A");
+4. new ArrayList<>().add("A");
+5. new List<String>().add("A");
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">1</Option>
+        <Option correct="true">2</Option>
+        <Option correct="true">3</Option>
+        <Option correct="true">4</Option>
+        <Option correct="false">5</Option>
+      </Options>
+      <ExplanationText><![CDATA[#4 - ArrayList<>() should be the same as ArrayList<Object>(). There is no way for compiler to infere the type]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[(Objective 1.5) Given proper import statements, will code bellow compile in Java SE 7?
+<java>
+  List<? extends String> list2 = new ArrayList<>();
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="true">Yes</Option>
+        <Option correct="false">Yes, but will produce warning since ArrayList is not parametrized properly</Option>
+        <Option correct="false">No, since ? cannot be used in this context</Option>
+        <Option correct="false">No, since String is a final class and cannot be extended</Option>
+        <Option correct="false">No, since ArrayList is an abstract class</Option>
+      </Options>
+      <ExplanationText />
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[(Objective 1.5) Give the following, what is the correct way to use "diamond" (generics type inference feature) in Java SE 7? (Choose all that apply)
+<java>
+1. Map<String, List<String>> myMap = new HashMap<<>>();
+2. Map<String, List<String>> myMap = new HashMap<Stirng,<>>();
+3. Map<String, List<String>> myMap = new HashMap<>();
+4. Map<String, List<String>> myMap = new HashMap<>;
+5. Map<String, List<String>> myMap = new HashMap()<>;
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">1</Option>
+        <Option correct="false">2</Option>
+        <Option correct="true">3</Option>
+        <Option correct="false">4</Option>
+        <Option correct="false">5</Option>
+      </Options>
+      <ExplanationText>#6 will compile with warning. No type inference happens in this case</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.5) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.5) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.6) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.6) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.6) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.6) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText>(Objective 1.6) TODO</QuestionText>
+      <Options>
+        <Option correct="true">Option 1</Option>
+        <Option correct="false">Option 2</Option>
+        <Option correct="false">Option 3</Option>
+      </Options>
+      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
     </MultipleChoiceQuestion>
   </Questions>
 </QuestionSet>
