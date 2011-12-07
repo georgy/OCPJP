@@ -14,7 +14,8 @@ public class Example1 {
                 throw new RealFubar();
             }
         } catch (Exception e) {
-            throw e;
+//            this actually will compile, suck it IDEA
+//            throw e;
         }
     }
 }

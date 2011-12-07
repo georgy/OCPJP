@@ -176,7 +176,7 @@ if you try to compile and run this progam, what would be the result?]]></Questio
       <ExplanationText><![CDATA[The code is valid. Note: Line //4 is constant expression, but if you replace it with (args.length > 0? "a": "A") it will not be constant and the code will not compile.]]></ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText><![CDATA[(Objective 1.2) What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
+      <QuestionText><![CDATA[What is the valid way to declare and initialize variable val in Java 7 SE? (Choose all that apply)
 <java>
 0. byte val = 125;
 1. int val = 42;
@@ -207,7 +207,7 @@ Option #6 is <b>correct</b>. 0b10_01_01 is valid binary integer literal of type 
 </p>]]></ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
-      <QuestionText><![CDATA[(Objective 1.2) What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
+      <QuestionText><![CDATA[What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
 
 <java>
 1. int val = 1234_5678_9012_3456_L; 
@@ -243,31 +243,29 @@ Option #8 is <b>not correct</b>.<br/> Octal integer literal can only use digits 
 </p>]]></ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.2) TODO</QuestionText>
+      <QuestionText>What is the valid way to declare and initialize integer variable val using binary literals in Java 7 SE? (Choose all that apply)</QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="false">int val = 10011010B;</Option>
+        <Option correct="false">int val = 10011010b;</Option>
+        <Option correct="true">int val = 0B10011010;</Option>
+        <Option correct="true">int val = 0b10011010;</Option>
+        <Option correct="false">int val = 0B_1001_1010;</Option>
+        <Option correct="true">int val = 0B1001_1010;</Option>
+        <Option correct="false">Only Java EE supports boolean litterals, not SE and not ME</Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText>Check out JLS 3.10. Everything is pretty straight forward.</ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.2) TODO</QuestionText>
+      <QuestionText>What is the valid way to declare and initialize variable val using float point integer literals in Java 7 SE? (Choose all that apply)</QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="true">double val = 1.1;</Option>
+        <Option correct="true">double val = 1e1;</Option>
+        <Option correct="true">double val = 0xFeA;</Option>
+        <Option correct="true">double val = 0xCAFEP10;</Option>
+        <Option correct="false">double val = 0xCAFEPA;</Option>
+        <Option correct="true">double val = 0xCA_FEP10;</Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.2) TODO</QuestionText>
-      <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
-      </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText>double val = 0xCAFEPA; is worng - P is ok, it is exponent indicator in hexidecimal format (you cannot use E or e). But exponent cannot be hexidecimal, it has to be decimal. See JLS 3.10.2</ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
       <QuestionText><![CDATA[(Objective 1.3) Given proper import statements and the code
@@ -377,7 +375,7 @@ what statements bellow are true? (Choose all that apply)<br/>]]></QuestionText>
     <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
       <QuestionText><![CDATA[(Objective 1.5) Which of the examples bellow will compile in Java SE 7? (Choose all that apply)
 
-<java>
+<java>	
 1. new ArrayList<>(String).add(new String("A"));
 2. new ArrayList<String>().add(new String("A"));
 3. new ArrayList<String>().add("A");
@@ -507,7 +505,9 @@ what line of code inserted independently at the // insert code here point will a
 throw new Exception(); - does not work, throws has to be modified for it to work<br/>
 e = new Exception(); throw e; - does not work, same reason as above<br/>
 throw new SomethingWrong(); - works obviously<br/>
-e = new SomethingWrong(); throw e; - does not work. Go figure why, I have no idea...]]></ExplanationText>
+e = new SomethingWrong(); throw e; - does not work.<br/>
+<br/>
+Based on <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/language/catch-multiple.html">this tutorial</a>, compiler checks if exception that you are trying to rethrow from catch block is the one you got from try block (as in "throw e;" option). If it is, compiler is able to figure out all the possible exceptions thrown from try block and you can use them to make your "throws" more narrow. If you change e (as in "e = new SomethingWrong(); throw e;" option) all bets are off. Compiler will force you to match your "throws" with the type you specified in catch block.]]></ExplanationText>
     </MultipleChoiceQuestion>
   </Questions>
 </QuestionSet>
