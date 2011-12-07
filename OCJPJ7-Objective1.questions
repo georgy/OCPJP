@@ -9,9 +9,17 @@
 <ul>
 <li>Maintainer: Georgy Bolyuba <a href="mailto:bolyuba@gmail.com">bolyuba@gmail.com</a>
 <li>Home page: <a href="https://github.com/georgy/OCPJP">github</a>
-<li>Version: 0.1
+<li>Version: 0.2
 <li>Date published: 2011-11-23
-<li>Licence: (Public domain, Creative Commons etc)
+<li>Licence: (Public domain, Creative Commons etc)</li>
+</ul>
+<ul>
+<li>Objective 1.1 Use String in the switch statement (JLS4, Chapter 14.11)</li>
+<li>Objective 1.2 Use binary literals, numeric literals with underscores (JLS4, Chapter 3.10)</li>
+<li>Objective 1.3 Use try-with-resources (JLS4, Chapter 14.20.3)</li>
+<li>Objective 1.4 Use multi-catch in exception statements (JLS4, Chapter 14.20)</li>
+<li>Objective 1.5 Use the diamond operator with generic declarations (JLS4, Chapter 15.9</li>
+<li>Objective 1.6 Use more precise rethrow in exceptions (Cannot find this in the spec. But it is defiantly a compiler change, so it should be there)</li>
 </ul>]]></Description>
   <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
   <Category>OCPJP 7: Objecive 1 - Language Enhancements</Category>
@@ -180,16 +188,31 @@ Option #8 is <b>not correct</b>.<br/> Octal integer literal can only use digits 
       <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <QuestionText><![CDATA[(Objective 1.3) Given proper import statements and the code
+
+<java>
+try (MyResource res = new MyResource()) {
+  // code here
+}
+</java>
+
+what statements bellow are true? (Choose all that apply)<br/>]]></QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="false">This code will not compile, because catch or finally block is missing</Option>
+        <Option correct="false">This code will compile</Option>
+        <Option correct="true">This code will compile, if MyResource implements AutoClosable interface</Option>
+        <Option correct="false">This code will compile, if MyResource implements Closable interface</Option>
+        <Option correct="false">This try block is valid, it is called try-with-resources and it cannot have any catch or finally blocks</Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText><![CDATA[MyResource has to implement AutoClosable interface and it's only method close (JLS 14.20.3)]]></ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.3) TODO</QuestionText>
+      <QuestionText><![CDATA[(Objective 1.3) Given proper import statements and code
+<java>
+  public class Foo implements AutoClosable {
+  
+  }
+</java>]]></QuestionText>
       <Options>
         <Option correct="true">Option 1</Option>
         <Option correct="false">Option 2</Option>
