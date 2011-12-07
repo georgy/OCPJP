@@ -173,7 +173,7 @@ if you try to compile and run this progam, what would be the result?]]></Questio
         <Option correct="false"><![CDATA[Code compiles and will print "a"]]></Option>
         <Option correct="true"><![CDATA[Code compiles and will print "Missed!"]]></Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText><![CDATA[The code is valid. Note: Line //4 is constant expression, but if you replace it with (args.length > 0? "a": "A") it will not be constant and the code will not compile.]]></ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
       <QuestionText><![CDATA[(Objective 1.2) What is the valid way to declare and initialize integer variable val in Java 7 SE? (Choose all that apply)
@@ -443,50 +443,71 @@ what statements bellow are true? (Choose all that apply)<br/>]]></QuestionText>
       </Options>
       <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
     </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.6) TODO</QuestionText>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code
+
+<java>
+public class Example1 {
+
+    static class SomethingWrong extends Exception {}  // 1
+    static class RealFubar extends Exception {}       // 2
+
+    public static void main(String[] args) throws SomethingWrong, RealFubar { // 3
+        try {
+            if (true) {
+                throw new SomethingWrong();
+            } else {
+                throw new RealFubar();                // 4
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+}
+</java>
+
+what will happen if you try to compile and run this code?]]></QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="false"><![CDATA[Code will not compile because of lines // 1 or // 2]]></Option>
+        <Option correct="false"><![CDATA[Code will not compile because of line // 3]]></Option>
+        <Option correct="false">Code will compile and run without no output</Option>
+        <Option correct="true">Code will compile and exception will be thrown at runtime</Option>
+        <Option correct="false"><![CDATA[Code will not compile because of line // 4]]></Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText>Intellij IDEA is wrong about it. This code will compile and will work on JSE 7. SomethingWrong will be thrown at runtime.</ExplanationText>
     </MultipleChoiceQuestion>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.6) TODO</QuestionText>
+      <QuestionText><![CDATA[Given following code
+
+<java>
+public class Example2 {
+
+    static class SomethingWrong extends Exception {
+    }
+
+    public static void main(String[] args) throws SomethingWrong {
+        try {
+            throw new SomethingWrong();
+        } catch (Exception e) {
+            // insert code here
+        }
+    }
+}
+</java>
+
+what line of code inserted independently at the // insert code here point will allow code to compile? (Choose all that apply)]]></QuestionText>
       <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
+        <Option correct="true">throw e;</Option>
+        <Option correct="false">throw new Exception();</Option>
+        <Option correct="false">e = new Exception(); throw e;</Option>
+        <Option correct="true">throw new SomethingWrong();</Option>
+        <Option correct="false">e = new SomethingWrong(); throw e;</Option>
       </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.6) TODO</QuestionText>
-      <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
-      </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.6) TODO</QuestionText>
-      <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
-      </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
-    </MultipleChoiceQuestion>
-    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
-      <QuestionText>(Objective 1.6) TODO</QuestionText>
-      <Options>
-        <Option correct="true">Option 1</Option>
-        <Option correct="false">Option 2</Option>
-        <Option correct="false">Option 3</Option>
-      </Options>
-      <ExplanationText>The explanation can reference the options directly, e.g., @1@, @2@ and @3@, or all the correct options, with @allcorrect@.</ExplanationText>
+      <ExplanationText><![CDATA[throw e; - works from JSE 7.<br/>
+throw new Exception(); - does not work, throws has to be modified for it to work<br/>
+e = new Exception(); throw e; - does not work, same reason as above<br/>
+throw new SomethingWrong(); - works obviously<br/>
+e = new SomethingWrong(); throw e; - does not work. Go figure why, I have no idea...]]></ExplanationText>
     </MultipleChoiceQuestion>
   </Questions>
 </QuestionSet>

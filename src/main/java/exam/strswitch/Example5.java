@@ -13,7 +13,7 @@ public class Example5 {
                 System.out.println("a");
                 break;
             default:
-                System.out.println("Missed!");
+                System.out.println("a");
                 break;
         }
     }
