@@ -1,0 +1,20 @@
+<!DOCTYPE QuestionSet [
+
+<!ELEMENT QuestionSet (Name,Description,RecommendedTimePerQuestion,Category,Questions)>
+<!ELEMENT Name (#PCDATA)>
+<!ELEMENT Description (#PCDATA)>
+<!ELEMENT RecommendedTimePerQuestion (#PCDATA)>
+<!ELEMENT Category (#PCDATA)>
+<!ELEMENT Questions (MultipleChoiceQuestion)+>
+<!ELEMENT MultipleChoiceQuestion (QuestionText,Options,ExplanationText)>
+<!ELEMENT QuestionText (#PCDATA)>
+<!ELEMENT Options (Option)+>
+<!ELEMENT ExplanationText (#PCDATA)>
+<!ELEMENT Option (#PCDATA)>
+
+<!ATTLIST MultipleChoiceQuestion shufflable type (true|false) #REQUIRED>
+<!ATTLIST MultipleChoiceQuestion singleOptionMode type (true|false) #REQUIRED>
+<!ATTLIST Option correct type (true|false) #REQUIRED>
+<!ATTLIST QuestionSet version CDATA #REQUIRED>
+
+]>

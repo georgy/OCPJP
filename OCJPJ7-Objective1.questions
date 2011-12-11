@@ -3,7 +3,7 @@
 
 <QuestionSet version="4">
   <Name>Language Enhancements</Name>
-  <Description><![CDATA[Questions on Java SE 7 (Objecive 1: Language Enhancements)
+  <Description><![CDATA[Questions on Java SE 7 (Objective 1: Language Enhancements)
 <hr>
 <b>Info:</b><br>
 <ul>
@@ -22,7 +22,7 @@
 <li>Objective 1.6 Use more precise rethrow in exceptions (Cannot find this in the spec. But it is defiantly a compiler change, so it should be there)</li>
 </ul>]]></Description>
   <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
-  <Category>OCPJP 7: Objecive 1 - Language Enhancements</Category>
+  <Category>OCPJP 7: Objective 1 - Language Enhancements</Category>
   <Questions>
     <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
       <QuestionText><![CDATA[What would be the result of compiling this code and running it without any command line parameters in Java SE 7?
@@ -94,7 +94,7 @@ public class Example2 {
 21. }
 </java>
 
-if you try to compile and run this progam, what would be the result?]]></QuestionText>
+if you try to compile and run this program, what would be the result?]]></QuestionText>
       <Options>
         <Option correct="false">Compile time exception on line 7</Option>
         <Option correct="false">Compile time exception on line 8</Option>
@@ -128,7 +128,7 @@ if you try to compile and run this progam, what would be the result?]]></Questio
 15. }
 </java>
 
-if you try to compile and run this progam, what would be the result?]]></QuestionText>
+if you try to compile and run this program, what would be the result?]]></QuestionText>
       <Options>
         <Option correct="false">Compiles and runs without output</Option>
         <Option correct="false"><![CDATA[Compiles and runs, printing "Look ma, null!"]]></Option>
@@ -162,7 +162,7 @@ public class Example5 {
 }
 </java>
 
-if you try to compile and run this progam, what would be the result?]]></QuestionText>
+if you try to compile and run this program, what would be the result?]]></QuestionText>
       <Options>
         <Option correct="false"><![CDATA[Code will fail to compile because of the line // 1]]></Option>
         <Option correct="false"><![CDATA[Code will fail to compile because of the line // 2]]></Option>
@@ -440,7 +440,7 @@ public class Example6 {
         }
 
         public void close() throws Exception {
-            System.out.println("close");
+            System.out.println(val);
         }
     }
 
