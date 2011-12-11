@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QuestionSet SYSTEM "inquisitionQuestions.dtd">
+
+<QuestionSet version="4">
+  <Name>Concurrency</Name>
+  <Description><![CDATA[Questions on ...
+<hr>
+<b>Info:</b><br>
+<ul>
+<li>Maintainer: Anton Koscejev <tt>&lt;koscejev@gmail.com&gt;</tt>
+<li>Home page: <a href="http://barcap.com">barcap.com</a>
+<li>Version: 1
+<li>Date published: 11.12.2011
+<li>Licence: TBD
+</ul>]]></Description>
+  <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
+  <Category>OCPJP 7: Objective 5 - Concurrency</Category>
+  <Questions>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[Given the following code, mark all correct answers:
+<java>
+public class Friends {
+    public static void main(String... args) {
+        final Friend alphonse = new Friend("Alphonse");
+        final Friend gaston = new Friend("Gaston");
+        new Thread(new Runnable() {
+            public void run() {
+                alphonse.bow(gaston);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            public void run() {
+                gaston.bow(alphonse);
+            }
+        }).start();
+    }
+}
+class Friend {
+    private final String name;
+    Friend(String name) { this.name = name; }
+    public synchronized void bow(Friend bower) {
+        System.out.format("%s: %s has bowed to me!%n", this.name, bower.name);
+        bower.bowBack(this);
+    }
+    public synchronized void bowBack(Friend bower) {
+        System.out.format("%s: %s has bowed back to me!%n", this.name, bower.name);
+    }
+}
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">The code will not compile</Option>
+        <Option correct="false">The code will compile, but will throw an exception at runtime</Option>
+        <Option correct="true">The code will run and might result in a deadlock</Option>
+        <Option correct="false">The code will run and might result in a livelock</Option>
+        <Option correct="true">The code will run and might result in 4 lines printed to System.out</Option>
+        <Option correct="false">The code will always run successfully and exit</Option>
+        <Option correct="false">The code will run and might result in only 3 lines printed to System.out</Option>
+        <Option correct="true">The code will run and might result in only 2 lines printed to System.out</Option>
+      </Options>
+      <ExplanationText><![CDATA[This code is likely to result in a deadlock. This will happen if the one thread enters its bow() method before the other thread enters bowBack(). In the unlikely scenario that one thread fully executes before the other thread, all messages will be printed out. If a dead lock occurs, it'll happen because both threads are waiting in bow() method to execute bowBack(), therefore only two lines will be printed.
+
+[5.1 - Concurrency - Identify potential threading problems]]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[Given the code:
+<java>
+public class Example4 {
+    static Object object = new Object();
+    public static void main(String... args) throws InterruptedException {
+        Thread t1 = new Thread() {
+            public void run() {
+                try {
+                    synchronized (object) {
+                        object.wait();
+                        System.out.println("t1: done waiting");
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("t1: interrupted");
+                }
+            }
+        }; t1.start();
+        Thread t2 = new Thread() {
+            public void run() {
+                try {
+                    synchronized (object) {
+                        object.wait();
+                        System.out.println("t2: done waiting");
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("t2: interrupted");
+                }
+            }
+        }; t2.start();
+        Thread t3 = new Thread() {
+            public void run() {
+                synchronized (object) {
+                    object.notify();
+                }
+            }
+        }; t3.start();
+        
+        t1.join();
+        t2.join();
+    }
+}
+</java>
+Which of the following is true? (Choose all that apply.)]]></QuestionText>
+      <Options>
+        <Option correct="false">The code will not compile</Option>
+        <Option correct="false">The code produce an exception at runtime</Option>
+        <Option correct="true">The code will result in a deadlock</Option>
+        <Option correct="true">The code might produce output t1: done waiting</Option>
+        <Option correct="true">The code might produce output t2: done waiting</Option>
+        <Option correct="false">The code might produce output t1: interrupted</Option>
+        <Option correct="false">The code might produce output t2: interrupted</Option>
+        <Option correct="false">The code will run successfully and exit with error code 0</Option>
+        <Option correct="true">The code will print 1 line</Option>
+        <Option correct="false">The code will print 2 lines</Option>
+        <Option correct="false">The code will print 3 lines</Option>
+        <Option correct="false">The code will print 4 lines</Option>
+      </Options>
+      <ExplanationText>Object.notify() notifies only one of the waiting threads, leaving others still waiting. The execution order of the threads is not guaranteed, therefore both t1 and t2 might end up being the first to run. However t1 is still most likely to be the first.
+
+[5.1 - Concurrency - Identify potential threading problems]</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[Which of these operations are NOT guaranteed to be atomic?
+<java>
+import java.util.concurrent.atomic.*
+public class Example5 {
+    int a = Integer.MAX_VALUE;
+    float b = Float.MAX_VALUE;
+    short c = Short.MAX_VALUE;
+    long d = Long.MAX_VALUE;
+    double e = Double.MAX_VALUE;
+    AtomicInteger f = new AtomicInteger(Integer.MAX_VALUE);
+    AtomicLong g = new AtomicLong(Long.MAX_VALUE);
+    volatile long h = Long.MAX_VALUE;
+
+    public void doSomething() {
+        //insert code here
+    }
+}
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">a = 1</Option>
+        <Option correct="false">b = 2</Option>
+        <Option correct="false">c = 3</Option>
+        <Option correct="true">d = 4</Option>
+        <Option correct="true">e = 5</Option>
+        <Option correct="false">f.set(6)</Option>
+        <Option correct="false">g.set(7)</Option>
+        <Option correct="false">h = 8</Option>
+        <Option correct="true">a++</Option>
+        <Option correct="false">f.incrementAndGet()</Option>
+        <Option correct="false">d = h</Option>
+      </Options>
+      <ExplanationText>Get and increment operator (++) occurs in two actions and is therefore not atomic. 
+
+For the purposes of the Java programming language memory model, a single write to a non-volatile long or double value is treated as two separate writes: one to each 32-bit half. This can result in a situation where a thread sees the first 32 bits of a 64-bit value from one write, and the second 32 bits from another write.
+
+Writes and reads of volatile long and double values are always atomic. Writes to and reads of references are always atomic, regardless of whether they are implemented as 32-bit or 64-bit values.
+
+[Chapter 17.7]
+[5.3 - Concurrency - Use atomic variables and locks]</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[Given the following code, which is true? (Choose all that apply.)
+<java>
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+public class Example6 extends ReentrantLock {
+    final Lock lock = this;
+    int[] counters = new int[20];
+    public void doA(int i) {
+        synchronized (lock) {
+            counters[i]++;
+        }
+    }
+    public void doB(int i) {
+        lock.lock();
+        counters[i]++;
+        lock.unlock();
+    }
+    public synchronized void doC(int i) {
+        counters[i]++;
+    }
+}
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">It is thread-safe as it is</Option>
+        <Option correct="false">It is thread-safe if doA and doB are used, but not doC</Option>
+        <Option correct="true">It is thread-safe if doA and doC are used, but not doB</Option>
+        <Option correct="false">It is thread-safe if doB and doC are used, but not doA</Option>
+        <Option correct="false">None of the methods can be used together as they are</Option>
+        <Option correct="false">The code will not compile</Option>
+      </Options>
+      <ExplanationText><![CDATA[ReentrantLock's <code>lock()</code> method doesn't use itself as the locking object, therefore its use is unsafe with the provided alternatives.
+
+Method <code>synchronized</code> keyword uses <code>this<code> to lock, therefore its use is safe with block <code>synchronized (this)</code>, and since lock = this, these two can be used together.
+
+[5.3 - Concurrency - Use atomic variables and locks]]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[Given the following code, which is true? (Choose all that apply.)
+<java>
+import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.ThreadLocalRandom;
+public class Example7 {
+	public static void main(String[] args) throws Exception {
+		MyTask task = new MyTask(0, 1000000);
+		Long result = task.compute();
+		System.out.println(result);
+	}
+
+	static class MyTask extends RecursiveTask<Long> {
+		private int start, end;
+		MyTask(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+		protected Long compute() {
+			if (end - start < 10000) {
+				long result = 0L;
+				for (int i = start; i < end; i++) {
+					result += i * ThreadLocalRandom.current().nextInt(100);
+				}
+				return result;
+			} else {
+				int middle = (end - start) / 2;
+				MyTask left = new MyTask(start, start + middle);
+				MyTask right = new MyTask(start + middle + 1, end);
+				left.fork();
+				return right.compute() + left.join();
+			}
+		}
+	}
+}</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">The code will not compile</Option>
+        <Option correct="true">The code will run, resulting in an exception at runtime</Option>
+        <Option correct="false">The code will run, printing result to System.out</Option>
+        <Option correct="false">The code will run in the main thread only</Option>
+        <Option correct="false">The code will run in one separate thread</Option>
+        <Option correct="false">The code will run in multiple separate threads</Option>
+      </Options>
+      <ExplanationText><![CDATA[Exception in thread "main" java.lang.ClassCastException: java.lang.Thread cannot be cast to java.util.concurrent.ForkJoinWorkerThread
+
+RecursiveTask, which extends ForkJoinTask, must be used from within a ForkJoinPool.
+
+[5.5 - Concurrency - Use the parallel Fork/Join framework]]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="false" singleOptionMode="false">
+      <QuestionText><![CDATA[Given the following code, what will happen if you try to compile and run it? (Choose all that apply.)
+<java>
+public class Example8 {
+	static Set<Thread> uniqueThreads = new CopyOnWriteArraySet<>();
+
+	public static void main(String[] args) throws InterruptedException {
+		uniqueThreads.add(Thread.currentThread());
+		ExecutorService executor = Executors.newFixedThreadPool(10);
+		for (int i = 0; i < 1000; i++) {
+			executor.submit(new MyWorker());
+		}
+		System.out.println("Unique threads: " + uniqueThreads.size());
+	}
+
+	static class MyWorker implements Runnable {
+		public void run() {
+			uniqueThreads.add(Thread.currentThread());
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException exc) {
+				//ignore
+			}
+		}
+	}
+}
+</java>]]></QuestionText>
+      <Options>
+        <Option correct="false">Program will output 1</Option>
+        <Option correct="false">Program will output 2</Option>
+        <Option correct="false">Program will output 10</Option>
+        <Option correct="true">Program will output 11</Option>
+        <Option correct="false">An exception will occur at runtime</Option>
+        <Option correct="false">The code will not compile</Option>
+        <Option correct="true">The program will never finish</Option>
+      </Options>
+      <ExplanationText>By the time System.out.println is executed, all the tasks have already started and were run by the provided threads, so the output is 1 main thread + 10 threads from thread pool = 11.
+
+ExecutorService is not stopped via shutdown() or shutdownNow(), so the threads never stop.
+
+[5.4 - Concurrency - Use Executors and ThreadPools]</ExplanationText>
+    </MultipleChoiceQuestion>
+  </Questions>
+</QuestionSet>
+
