@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QuestionSet SYSTEM "inquisitionQuestions.dtd">
+
+<QuestionSet version="4">
+  <Name>Java File I/O (NIO.2)</Name>
+  <Description><![CDATA[Questions on Java SE 7 (Objective 6: Java File I/O (NIO.2))
+<hr>
+<b>Info:</b><br>
+<ul>
+<li>Maintainer: Georgy Bolyuba <a href="mailto:bolyuba@gmail.com">bolyuba@gmail.com</a>
+<li>Home page: <a href="https://github.com/georgy/OCPJP">github</a>
+<li>Version: 0.2
+<li>Date published: 2011-11-23
+<li>Licence: (Public domain, Creative Commons etc)</li>
+</ul>
+<ul>
+<li>Objective 6.1 Use the Path class to operate on file and directory paths</li>
+<li>Objective 6.2 Use the Files class to check, delete, copy, or move a file or directory</li>
+<li>Objective 6.3 Read and change file and directory attributes</li>
+<li>Objective 6.4 Recursively access a directory tree</li>
+<li>Objective 6.5 Find a file by using the PathMatcher class</li>
+<li>Objective 6.6 Watch a directory for changes by using WatchService</li>
+</ul>]]></Description>
+  <RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
+  <Category>OCPJP 7: Objective 6 - Java File I/O (NIO.2)</Category>
+  <Questions>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[What is the valid way to create path ? (Choose all that apply)]]></QuestionText>
+      <Options>
+          <Option correct="false"><![CDATA[Path p = new Path("somepath");]]></Option>
+          <Option correct="true"><![CDATA[Path p = Paths.get("somepath");]]></Option>
+          <Option correct="false"><![CDATA[Path p = Path.get("somepath");]]></Option>
+          <Option correct="true"><![CDATA[Path p = FileSystems.getDefault().getPath("somepath");]]></Option>
+          <Option correct="false">Something else</Option>
+      </Options>
+      <ExplanationText>Path is interface so new Path and Path.get are incorrect. Paths.get is equal to FileSystems.getDefault().getPath and it is correct way to create path object.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[What would be the result of compiling this code and running it in Java SE 7?
+
+Directory structure (POSIX fs):
+Example2.class
+file1
+link1 - symlink to file1
+
+<java>
+import java.nio.file.*;
+
+public class Example {
+    public static void main(String[] args) {
+        Path file = Paths.get("file1");
+        Path link = Paths.get("link1");
+
+        if (file == link) {
+            System.out.print("== ");
+        }
+        if (file.equals(link)) {
+            System.out.print("eq ");
+        }
+        if (Files.isSameFile(file,link)) {
+            System.out.print("sf ");
+        }
+    }
+}</java>]]></QuestionText>
+      <Options>
+        <Option correct="true">Code will not compile</Option>
+        <Option correct="false">== eq sf</Option>
+        <Option correct="false">Compiles, runs without any output</Option>
+        <Option correct="false">Compiles, throws NoSuchFileException in runtime</Option>
+        <Option correct="false">eq sf</Option>
+        <Option correct="false">sf</Option>
+      </Options>
+      <ExplanationText>Code will not compile - Files.isSameFile throws checked IOException. If catched correct result will be sf because symlink points to file1 but file and link objects are different.</ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[What is valid option to create Path object with /usr/bin ? (Choose all that apply)]]></QuestionText>
+      <Options>
+          <Option correct="false"><![CDATA[new Path("/usr/bin");]]></Option>
+          <Option correct="true"><![CDATA[Paths.get("/usr/bin");]]></Option>
+          <Option correct="false"><![CDATA[Paths.get("/usr","bin");]]></Option>
+          <Option correct="true"><![CDATA[Paths.get("/usr").resolve(Paths.get("bin"));]]></Option>
+          <Option correct="false"><![CDATA[Paths.get("/usr").append(Paths.get("bin"));]]></Option>
+          <Option correct="true"><![CDATA[new File("/usr/bin").toPath()]]></Option>
+      </Options>
+      <ExplanationText><![CDATA[Only Paths.get("value") and Path.resolve("value") are valid. new File("value").toPath() is valid conversion from Java 6 NIO.]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code
+
+<java>
+import java.io.IOException;
+import java.nio.file.*;
+
+public class Example {
+    public static void main(String[] args) throws IOException{
+        Path file = Paths.get("/tmp/test.txt");
+        System.out.println(file);
+        file = Files.createFile(file);
+        System.out.println(file);
+        Files.deleteIfExists(file);
+        System.out.println(file);
+        Files.delete(file);
+        System.out.println(file);
+    }
+}</java>
+
+if you try to compile and run this program, what would be the result?]]></QuestionText>
+      <Options>
+        <Option correct="false">Compiles and runs without output</Option>
+          <Option correct="false"><![CDATA[Compiles and runs, printing "/tmp/test.txt" 2 times followed by 2 "null"]]></Option>
+          <Option correct="false"><![CDATA[Compiles and runs, printing "/tmp/test.txt" 4 times]]></Option>
+        <Option correct="true">Compiles and runs, printing "/tmp/test.txt" 3 times followed by NoSuchFileException</Option>
+        <Option correct="false">The code will not compile</Option>
+      </Options>
+      <ExplanationText><![CDATA[File is created after first print and deleted immediately after second print. Files.delete(file) throws NoSuchFileException and last print is skipped]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+      <QuestionText><![CDATA[Given following code with proper import statements:
+
+<java>
+public class Example {
+    public static void main(String[] args) throws IOException {
+        Path root = Paths.get("/usr");
+
+        //INSERT
+
+         {
+            for (Path p : dir) {
+                System.out.println(p.getFileName());
+            }
+        }
+
+    }
+}
+</java>
+
+and following options inserted independently in //INSERT line:
+
+<java>
+1. try (DirectoryStream<Path> dir = Files.newDirectoryStream(root, new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path entry) throws IOException {
+                return Files.isDirectory(entry) || Files.isFile(entry);
+            }
+        }))
+
+2. try (DirectoryStream<Path> dir = Files.newDirectoryStream(root, new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path entry) throws IOException {
+                return Files.isDirectory(entry) || Files.isRegularFile(entry);
+            }
+        }))
+
+3. try (DirectoryStream<Path> dir = Files.newDirectoryStream(root, new DirectoryStream.Filter() {
+            @Override
+            public boolean accept(Path entry) throws IOException {
+                return Files.isDirectory(entry) || Files.isRegularFile(entry);
+            }
+        }))
+
+4. try (DirectoryStream<Path> dir = Files.newDirectoryStream(root, new Filter<Path>() {
+            @Override
+            public boolean accept(Path entry) throws IOException {
+                return Files.isDirectory(entry) || Files.isFile(entry);
+            }
+        }))
+
+5. try (DirectoryStream<Path> dir = Files.newDirectoryStream(root, new FileFilter() {
+             @Override
+             public boolean accept(File pathname) {
+                 return Files.isDirectory(entry) || Files.isRegularFile(entry);
+             }
+        }))
+</java>
+
+which of them compiles and prints dirs and files in /usr (assume /usr exists) ?]]></QuestionText>
+      <Options>
+        <Option correct="false">None of them</Option>
+          <Option correct="false">Only Option 1.</Option>
+          <Option correct="true">Only Option 2.</Option>
+          <Option correct="false">Only Option 3.</Option>
+          <Option correct="false">Only Option 4.</Option>
+          <Option correct="false">Only Option 5.</Option>
+          <Option correct="false">Options 2. and 3.</Option>
+          <Option correct="false">Options 2., 3. and 5.</Option>
+      </Options>
+      <ExplanationText><![CDATA[Only 2. is valid, all other have compilation errors. Option 1. - Files.isFile is not valid. Option 3. - missing <Path> after DirectoryStream.Filter. Option 4. - interface Filter doesn't exist. Option 5 - interface FileFilter is for Java 6 NIO, not allowed in Files.newDirectoryStream]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[Watcher service is registered with ENTRY_CREATE and ENTRY_DELETE kinds. Which kinds may appear in events ? (Choose all that apply)]]></QuestionText>
+      <Options>
+        <Option correct="true">ENTRY_CREATE</Option>
+        <Option correct="true">ENTRY_DELETE</Option>
+        <Option correct="false">ENTRY_MODIFY</Option>
+        <Option correct="true">OVERFLOW</Option>
+        <Option correct="false">EMPTY</Option>
+        <Option correct="false">None of them</Option>
+      </Options>
+      <ExplanationText><![CDATA[OVERFLOW may appear always and ENTRY_CREATE with ENTRY_DELETE are set for watch service.]]></ExplanationText>
+    </MultipleChoiceQuestion>
+    <MultipleChoiceQuestion shufflable="true" singleOptionMode="false">
+      <QuestionText><![CDATA[When is NOT called postVisitDirectory method ? Assume dir with files and empty sub directories inside. (Choose all that apply)]]></QuestionText>
+      <Options>
+          <Option correct="true">preVisitDirectory returns SKIP_SIBLINGS</Option>
+          <Option correct="true">preVisitDirectory returns SKIP_SUBTREE</Option>
+          <Option correct="false">visitFile returns SKIP_SIBLINGS</Option>
+          <Option correct="false">visitFile returns SKIP_SUBTREE</Option>
+          <Option correct="false">visitFile returns TERMINATE</Option>
+          <Option correct="false">None of them</Option>
+      </Options>
+      <ExplanationText><![CDATA[Only preVisitDirectory returning SKIP_SIBLINGS, SKIP_SUBTREE or TERMINATE can skip postVisitDirectory call. visitFile itself is skipped on empty directory]]></ExplanationText>
+    </MultipleChoiceQuestion>
+  </Questions>
+</QuestionSet>
+
