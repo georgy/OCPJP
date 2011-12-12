@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QuestionSet SYSTEM "inquisitionQuestions.dtd">
+
+<QuestionSet version="4">
+	<Name>Localization</Name>
+	<Description><![CDATA[Questions on Java SE 7 (Objecive 5: Localization)
+<hr>
+<b>Info:</b><br>
+<ul>
+<li>Maintainer: Jonas <a href="mailto:jonas.fiala@gmail.com">jonas.fiala@gmail.com</a>
+<li>Home page: <a href="https://github.com/georgy/OCPJP">github</a>
+<li>Version: 0.1
+<li>Date published: 2012-12-12
+<li>Licence: (Public domain, Creative Commons etc)</li>
+</ul>
+<ul>
+<li>Objective 5.1 Describe the advantages of localizing an application  </li>
+<li>Objective 5.2 Define what a locale represents  </li>
+<li>Objective 5.3 Read and set the locale by using the Locale object  </li>
+<li>Objective 5.4 Build a resource bundle for each locale  </li>
+<li>Objective 5.5 Call a resource bundle from an application  </li>
+<li>Objective 5.6 Select a resource bundle based on locale  </li>
+<li>Objective 5.7 Format text for localization by using NumberFormat and DateFormat </li>
+</ul>]]></Description>
+	<RecommendedTimePerQuestion>120</RecommendedTimePerQuestion>
+	<Category>OCPJP 7: Format text for localization by using NumberFormat and DateFormat</Category>
+	<Questions>
+
+		<!--   Q1 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex1 {
+	public static void main(String[] args) {
+		// Insert code here
+		Date d = new Date();
+		System.out.println(f.format(d));
+	}
+}
+</java>
+What line(s) of code inserted independently will allow the class to compile, run and output one line of text? (Choose all that apply)
+]]></QuestionText>
+			<Options>
+				<Option correct="true">DateFormat f = DateFormat.getInstance();</Option>
+				<Option correct="true">DateFormat f = DateFormat.getDateInstance();</Option>
+				<Option correct="false">DateFormat f = DateFormat.getDateInstance(Locale.GERMAN);</Option>
+				<Option correct="false">DateFormat f = DateFormat.getDateInstance(Locale.GERMANY);</Option>
+				<Option correct="true">DateFormat f = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN);</Option>
+				<Option correct="true">DateFormat f = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY);</Option>
+			</Options>
+			<ExplanationText>
+				In terms of getDateInstance only the following method declarations are correct:
+				getDateInstance()
+				getDateInstance(int style)
+				getDateInstance(int style, Locale aLocale).
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+		<!-- Q2 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex2 {
+	public static void main(String[] args) {
+		DateFormat f = DateFormat.getInstance();
+		Date d = new Date();
+		System.out.println(f.format(d));
+		// Insert code here
+	}
+}
+</java>
+Assume compilation works out. What would produce the equivalent output? (Choose all that apply)
+<java>
+1:    DateFormat tf = DateFormat.getDateInstance(DateFormat.SHORT);
+      DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
+      System.out.println(tf.format(d) + " " + df.format(d));
+
+2:    DateFormat tf = DateFormat.getDateInstance(DateFormat.DEFAULT);
+	  DateFormat df = DateFormat.getTimeInstance(DateFormat.DEFAULT);
+	  System.out.println(tf.format(d) + " " + df.format(d));
+
+3:    DateFormat tf = DateFormat.getDateInstance();
+	  DateFormat df = DateFormat.getTimeInstance();
+	  System.out.println(tf.format(d) + " " + df.format(d));
+
+4:	  DateFormat tf = DateFormat.getDateInstance(0);
+	  DateFormat df = DateFormat.getTimeInstance(-1);
+	  System.out.println(tf.format(d) + " " + df.format(d));
+
+5:	  DateFormat tf = DateFormat.getDateInstance();
+	  DateFormat df = TimeFormat.getTimeInstance();
+	  System.out.println(tf.format(d) + " " + df.format(d));
+</java>
+]]></QuestionText>
+			<Options>
+				<Option correct="true">1st</Option>
+				<Option correct="false">2nd</Option>
+				<Option correct="false">3rd</Option>
+				<Option correct="false">4th</Option>
+				<Option correct="false">5th</Option>
+			</Options>
+			<ExplanationText>
+				getInstance():  Get a default date/time formatter that uses the SHORT style for both the date and the time.
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+		<!-- Q3 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+<java>
+public class Ex3 {
+	public static void main(String[] args) {
+		DateFormat f = DateFormat.getDateInstance(DateFormat.FULL, Locale.UK);
+		NumberFormat nf = f.getNumberFormat();
+		System.out.println(nf.getCurrency().getCurrencyCode() + " "+ nf.format(15000000L));
+	}
+}
+</java>
+If you try to compile and run this progam, what would be the result?
+]]></QuestionText>
+			<Options>
+				<Option correct="false">Compile time error.</Option>
+				<Option correct="false">Exception thrown at runtime.</Option>
+				<Option correct="false">Program compiles and runs with exit code 0, printing: "&pound; 15000000L"</Option>
+				<Option correct="false">Program compiles and runs with exit code 0, printing: "&pound; 15000000"</Option>
+				<Option correct="false">Program compiles and runs with exit code 0, printing: "GBP 15000000L"</Option>
+				<Option correct="true">Program compiles and runs with exit code 0, printing: "GBP 15000000"</Option>
+			</Options>
+			<ExplanationText>
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+
+		<!-- Q4 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex4 {
+	public static void main(String[] args) {
+		NumberFormat f = NumberFormat.getInstance();
+		f.setMaximumFractionDigits(0);
+		try {
+			System.out.println( f.parse("3.14") );
+		} catch (ParseException e) {
+			System.out.println("HUHU");
+		}
+	}
+}
+</java>
+If you try to compile and run this progam, what would be the result? (Assume UK locale)
+]]></QuestionText>
+			<Options>
+				<Option correct="true">3.14</Option>
+				<Option correct="false">3,14</Option>
+				<Option correct="false">HUHU</Option>
+				<Option correct="false">Exception thrown at runtime</Option>
+			</Options>
+			<ExplanationText>
+				3.14 -- setMaximumFractionDigits() setting doesn't affect NumberFormat.parse() .
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+
+
+		<!-- Q5 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex5 {
+	public static void main(String[] args) {
+		NumberFormat f = NumberFormat.getInstance();
+		f.setMaximumFractionDigits(0);
+		try {
+			System.out.println( f.format( f.parse("3.14") ) );
+		} catch (ParseException e) {
+			System.out.println("HUHU");
+		}
+	}
+}
+</java>
+If you try to compile and run this program, what would be the result? (Assume UK locale)
+]]></QuestionText>
+			<Options>
+				<Option correct="false">3.14</Option>
+				<Option correct="true">3</Option>
+				<Option correct="false">HUHU</Option>
+				<Option correct="false">Exception thrown at runtime</Option>
+			</Options>
+			<ExplanationText>
+				3 is correct since setMaximumFractionsDigits() affects NumberFormat.format()
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+		<!-- Q6 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex6 {
+	public static void main(String[] args) {
+		Locale loc = Locale.getDefault();
+		ResourceBundle rb = ResourceBundle.getBundle("Ex6", loc);
+		System.out.println( rb.getString("some") );
+	}
+}
+</java>
+Which filenames must be present on the classpath to make program run correctly (i.e. exit with code 0)? (Assume Windows OS, US locale)
+]]></QuestionText>
+			<Options>
+				<Option correct="true">ex6.properties</Option>
+				<Option correct="true">Ex6.properties</Option>
+				<Option correct="false">Ex6_default.properties</Option>
+				<Option correct="false">Ex6_en_GB.properties</Option>
+				<Option correct="false">Ex6_GB_en.properties</Option>
+			</Options>
+			<ExplanationText>
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+
+		<!-- Q7 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex6 {
+	public static void main(String[] args) {
+		Locale loc = Locale.getDefault();
+		ResourceBundle rb = ResourceBundle.getBundle("Ex6", loc);
+		System.out.println( rb.getString("another") );
+	}
+}
+</java>
+Ex6.properties:
+some = value
+#EOF
+
+If you try to compile and run this program, what would be the program output? (Assume UK locale, choose all that apply)
+]]></QuestionText>
+			<Options>
+				<Option correct="false">Compile time exception</Option>
+				<Option correct="true">Exception thrown at runtime</Option>
+				<Option correct="true">MissingResourceException</Option>
+				<Option correct="false">NullPointerException</Option>
+				<Option correct="false">AttributeException</Option>
+			</Options>
+			<ExplanationText>
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+
+		<!-- Q8 -->
+		<MultipleChoiceQuestion shufflable="true" singleOptionMode="true">
+			<QuestionText><![CDATA[Given the proper import statements and code
+
+<java>
+public class Ex6 {
+	public static void main(String[] args) {
+		Locale loc = Locale.CANADA_FRENCH;
+		ResourceBundle rb = ResourceBundle.getBundle("Ex6", loc);
+		System.out.println( rb.getString("another") );
+	}
+}
+</java>
+Ex6_fr_CA.properties:
+some = value
+#EOF
+
+If you try to compile and run this program, what would be the program output? (Assume Canada(Fr) locale, choose all that apply)
+]]></QuestionText>
+			<Options>
+				<Option correct="false">Compile time exception</Option>
+				<Option correct="true">Exception thrown at runtime</Option>
+				<Option correct="true">MissingResourceException</Option>
+				<Option correct="false">NullPointerException</Option>
+				<Option correct="false">AttributeException</Option>
+			</Options>
+			<ExplanationText>
+			</ExplanationText>
+		</MultipleChoiceQuestion>
+
+	</Questions>
+</QuestionSet>
